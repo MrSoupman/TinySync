@@ -1,16 +1,30 @@
 ﻿using System.Text.Json;
 using TinySync.Model;
 using System.Collections.Generic;
+using System.IO;
 using System;
 
 namespace TinySync.ViewModel
 {
-    class JsonSvc
+    public class JsonSvc
     {
-        public string Serialize(Dictionary<string, Metadata> data)
+        public static string Serialize(IList<Metadata> data)
         {
-            Console.WriteLine(JsonSerializer.Serialize(data));
-            return "";
+            return JsonSerializer.Serialize(data);
+        }
+
+        public static IList<Metadata> LoadJson()
+        {
+            if (File.Exists("data.json"))
+            {
+                using (StreamReader reader = new StreamReader("data.json"))
+                {
+
+                    return null;
+                }
+            }
+            else
+                return new List<Metadata>();
         }
     }
 }

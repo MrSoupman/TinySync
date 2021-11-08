@@ -10,9 +10,18 @@ namespace TinySync.ViewModel
 {
     public class UserViewModel : INotifyPropertyChanged
     {
-        private Dictionary<string, Metadata> data;
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// data is used to store the directory/file to be synced, and its metadata. 
+        /// </summary>
+        public IList<Metadata> data;
+        
+
+        public void LoadData()
+        { 
+            
+        }
 
     }
 }

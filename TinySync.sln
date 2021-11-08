@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinySync", "TinySync.csproj", "{391B7569-8D68-4C59-BBBC-29B4BAF5533D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinySync", "TinySync.csproj", "{391B7569-8D68-4C59-BBBC-29B4BAF5533D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinySyncTests", "..\TinySyncTests\TinySyncTests.csproj", "{0F511E38-72C3-4A27-8EBE-5C108E7F0905}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{391B7569-8D68-4C59-BBBC-29B4BAF5533D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{391B7569-8D68-4C59-BBBC-29B4BAF5533D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{391B7569-8D68-4C59-BBBC-29B4BAF5533D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F511E38-72C3-4A27-8EBE-5C108E7F0905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F511E38-72C3-4A27-8EBE-5C108E7F0905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F511E38-72C3-4A27-8EBE-5C108E7F0905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F511E38-72C3-4A27-8EBE-5C108E7F0905}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
