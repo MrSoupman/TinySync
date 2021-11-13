@@ -1,25 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
 
 namespace TinySync.Model
 {
     public class Metadata
     {
-        public string Origin { get; }
+        [JsonInclude]
+        public string Origin { get; set; }
 
-        public string OriginSHA { get; }
+        [JsonInclude]
+        public string OriginSHA { get; set; }
 
-        public string Remote { get; }
+        [JsonInclude]
+        public string Remote { get; set; }
 
-        public string RemoteSHA { get; }
+        [JsonInclude]
+        public string RemoteSHA { get; set; }
 
         /// <summary>
         /// Exclusions is a list of files/dirs to be excluded from the sync. As such, should only be used for directories that were added.
         /// </summary>
+        [JsonInclude]
         public IList<string> Exclusions { get; set; }
 
         public Metadata() { }
@@ -37,6 +39,34 @@ namespace TinySync.Model
             this.Remote = Remote;
             this.RemoteSHA = RemoteSHA;
             Exclusions = new List<string>();
+        }
+
+        public override bool Equals(object data)
+        {
+            Metadata temp = data as Metadata;
+            if (data != null)
+            {
+                if (temp.Origin == Origin &&
+                    temp.OriginSHA == OriginSHA &&
+                    temp.Remote == Remote &&
+                    temp.RemoteSHA == RemoteSHA)
+                {
+                    for (int i = 0; i < temp.Exclusions.Count; i++)
+                    {
+                        if (!temp.Exclusions.Contains(Exclusions[i]))
+                            return false;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
     }

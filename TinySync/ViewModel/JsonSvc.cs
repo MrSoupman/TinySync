@@ -13,18 +13,33 @@ namespace TinySync.ViewModel
             return JsonSerializer.Serialize(data);
         }
 
+        public static void SaveJson(IList<Metadata> data)
+        {
+            var options = new JsonSerializerOptions
+            {
+                IncludeFields = true,
+            };
+            byte[] json = JsonSerializer.SerializeToUtf8Bytes(data,options);
+            using (var stream = File.OpenWrite("data.json"))
+            {
+                stream.Write(json);
+            }
+        }
+
         public static IList<Metadata> LoadJson()
         {
             if (File.Exists("data.json"))
             {
-                using (StreamReader reader = new StreamReader("data.json"))
-                {
-
-                    return null;
-                }
+                string json = File.ReadAllText("data.json");
+                IList<Metadata> data = JsonSerializer.Deserialize<List<Metadata>>(json);
+                return data;
             }
-            else
+            else 
+            {
+                File.Create("data.json");
                 return new List<Metadata>();
+            
+            }
         }
     }
 }
