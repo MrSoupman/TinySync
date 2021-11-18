@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TinySync.Model;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace TinySync.ViewModel
 {
@@ -15,13 +16,23 @@ namespace TinySync.ViewModel
         /// <summary>
         /// data is used to store the directory/file to be synced, and its metadata. 
         /// </summary>
-        public IList<Metadata> data;
-        
+        public ObservableCollection<Metadata> data = new ObservableCollection<Metadata>();
 
         public void LoadData()
-        { 
-            
+        {
+            data = JsonSvc.LoadJson();
         }
+
+        /// <summary>
+        /// Initializes all data needed
+        /// </summary>
+        public void Init()
+        {
+            
+
+        }
+
+        
 
     }
 }

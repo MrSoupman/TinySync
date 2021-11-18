@@ -3,6 +3,7 @@ using TinySync.Model;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using System.Collections.ObjectModel;
 
 namespace TinySync.ViewModel
 {
@@ -26,18 +27,18 @@ namespace TinySync.ViewModel
             }
         }
 
-        public static IList<Metadata> LoadJson()
+        public static ObservableCollection<Metadata> LoadJson()
         {
             if (File.Exists("data.json"))
             {
                 string json = File.ReadAllText("data.json");
-                IList<Metadata> data = JsonSerializer.Deserialize<List<Metadata>>(json);
+                ObservableCollection<Metadata> data = JsonSerializer.Deserialize<ObservableCollection<Metadata>>(json);
                 return data;
             }
             else 
             {
                 File.Create("data.json");
-                return new List<Metadata>();
+                return new ObservableCollection<Metadata>();
             
             }
         }

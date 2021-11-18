@@ -6,6 +6,8 @@ namespace TinySync.Model
 {
     public class Metadata
     {
+        //Need to add datetime object
+
         [JsonInclude]
         public string Origin { get; set; }
 
