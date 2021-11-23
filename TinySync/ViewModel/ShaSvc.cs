@@ -37,5 +37,18 @@ namespace TinySync.ViewModel
                 }
             }
         }
+
+        /// <summary>
+        /// Tests two files by checking their SHA values
+        /// </summary>
+        /// <param name="file1"></param>
+        /// <param name="file2"></param>
+        /// <returns></returns>
+        public static bool TestSHA(string file1, string file2)
+        {
+            string file1SHA = GetSHA(file1);
+            string file2SHA = GetSHA(file2);
+            return file1SHA.Equals(file2SHA);
+        }
     }
 }

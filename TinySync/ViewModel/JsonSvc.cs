@@ -9,12 +9,12 @@ namespace TinySync.ViewModel
 {
     public class JsonSvc
     {
-        public static string Serialize(IList<Metadata> data)
+        public static string Serialize(ObservableCollection<Metadata> data)
         {
             return JsonSerializer.Serialize(data);
         }
 
-        public static void SaveJson(IList<Metadata> data)
+        public static void SaveJson(ObservableCollection<Metadata> data)
         {
             var options = new JsonSerializerOptions
             {
