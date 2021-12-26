@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using TinySync.Model;
 
-namespace TinySync.ViewModel
+namespace TinySync.Services
 {
     class SyncSvc
     {

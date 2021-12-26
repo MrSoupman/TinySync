@@ -5,7 +5,7 @@ using System.IO;
 using System;
 using System.Collections.ObjectModel;
 
-namespace TinySync.ViewModel
+namespace TinySync.Services
 {
     public class JsonSvc
     {
@@ -32,8 +32,16 @@ namespace TinySync.ViewModel
             if (File.Exists("data.json"))
             {
                 string json = File.ReadAllText("data.json");
-                ObservableCollection<Metadata> data = JsonSerializer.Deserialize<ObservableCollection<Metadata>>(json);
-                return data;
+                try
+                {
+                    ObservableCollection<Metadata> data = JsonSerializer.Deserialize<ObservableCollection<Metadata>>(json);
+                    return data;
+                }
+                catch (JsonException j)
+                {
+                    //In the event the json file is empty or something
+                    return new ObservableCollection<Metadata>();
+                }
             }
             else 
             {

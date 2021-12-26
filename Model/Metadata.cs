@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Text.Json.Serialization;
 
 
@@ -6,41 +6,51 @@ namespace TinySync.Model
 {
     public class Metadata
     {
-        //Need to add datetime object
 
         [JsonInclude]
         public string Origin { get; set; }
 
-        [JsonInclude]
+        //To remove?
         public string OriginSHA { get; set; }
 
         [JsonInclude]
         public string Remote { get; set; }
 
-        [JsonInclude]
+        //To remove?
         public string RemoteSHA { get; set; }
 
-        /// <summary>
-        /// Exclusions is a list of files/dirs to be excluded from the sync. As such, should only be used for directories that were added.
-        /// </summary>
-        [JsonInclude]
-        public IList<string> Exclusions { get; set; }
+        public DateTime LastSynced { get; set; }
 
+        public string Status { get; set; }
+
+        
         public Metadata() { }
 
         public Metadata(string Origin)
         {
             this.Origin = Origin;
-            Exclusions = new List<string>();
         }
 
+        public Metadata(string Origin, string Remote)
+        {
+            this.Origin = Origin;
+            this.Remote = Remote;
+        }
+
+        /// <summary>
+        /// For debugging purposes only, need to remove later.
+        /// </summary>
+        /// <param name="Origin"></param>
+        /// <param name="OriginSHA"></param>
+        /// <param name="Remote"></param>
+        /// <param name="RemoteSHA"></param>
         public Metadata(string Origin, string OriginSHA, string Remote, string RemoteSHA)
         {
             this.Origin = Origin;
             this.OriginSHA = OriginSHA;
             this.Remote = Remote;
             this.RemoteSHA = RemoteSHA;
-            Exclusions = new List<string>();
+            
         }
 
         public override bool Equals(object data)
@@ -48,18 +58,7 @@ namespace TinySync.Model
             Metadata temp = data as Metadata;
             if (data != null)
             {
-                if (temp.Origin == Origin &&
-                    temp.OriginSHA == OriginSHA &&
-                    temp.Remote == Remote &&
-                    temp.RemoteSHA == RemoteSHA)
-                {
-                    for (int i = 0; i < temp.Exclusions.Count; i++)
-                    {
-                        if (!temp.Exclusions.Contains(Exclusions[i]))
-                            return false;
-                    }
-                    return true;
-                }
+                return temp.OriginSHA == OriginSHA && temp.Remote == Remote;
             }
             return false;
         }

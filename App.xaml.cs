@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using TinySync.ViewModel;
-using TinySync.View;
 
 namespace TinySync
 {
@@ -17,11 +16,12 @@ namespace TinySync
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel()
+            };
+            MainWindow.Show();
             base.OnStartup(e);
-            MainWindow window = new MainWindow();
-            UserViewModel VM = new UserViewModel();
-            window.DataContext = VM;
-            window.Show();
         }
     }
 }

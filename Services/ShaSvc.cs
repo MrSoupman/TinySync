@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.IO;
+using TinySync.Model;
 
-namespace TinySync.ViewModel
+namespace TinySync.Services
 {
     public class ShaSvc
     {
@@ -49,6 +50,10 @@ namespace TinySync.ViewModel
             string file1SHA = GetSHA(file1);
             string file2SHA = GetSHA(file2);
             return file1SHA.Equals(file2SHA);
+        }
+        public static bool TestSHA(Metadata metadata)
+        {
+            return TestSHA(metadata.Origin, metadata.Remote);
         }
     }
 }
