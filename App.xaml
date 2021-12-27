@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TinySync">
     <Application.Resources>
-         
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="20 10"/>
+        </Style>
     </Application.Resources>
 </Application>

@@ -27,6 +27,20 @@ namespace TinySync.ViewModel
         public ICommand Modify { get; }
         public ICommand Sync { get; }
 
+        private string _file;
+        public string _File
+        {
+            get
+            {
+                return _file;
+            }
+            set
+            {
+                _file = value;
+                OnPropertyChanged(nameof(_File));
+            }
+        }
+
         public HomeViewModel()
         {
             data = new ObservableCollection<MetadataViewModel>();

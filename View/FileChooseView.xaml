@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TinySync.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid  MaxWidth="600" HorizontalAlignment="Stretch" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -35,9 +35,9 @@
                 <Button Grid.Column="1">Browse</Button>
             </Grid>
         </DockPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <StackPanel Margin="0 10 0 0" Grid.Row="2" Orientation="Horizontal">
             <Button>Cancel</Button>
-            <Button>Add</Button>
+            <Button Margin="10 0 0 0">Add</Button>
         </StackPanel>
     </Grid>
 </UserControl>
