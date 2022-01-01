@@ -14,7 +14,7 @@ namespace TinySync.Services
             return JsonSerializer.Serialize(data);
         }
 
-        public static void SaveJson(ObservableCollection<Metadata> data)
+        public static void SaveJson(List<Metadata> data)
         {
             var options = new JsonSerializerOptions
             {
@@ -27,26 +27,26 @@ namespace TinySync.Services
             }
         }
 
-        public static ObservableCollection<Metadata> LoadJson()
+        public static List<Metadata> LoadJson()
         {
             if (File.Exists("data.json"))
             {
                 string json = File.ReadAllText("data.json");
                 try
                 {
-                    ObservableCollection<Metadata> data = JsonSerializer.Deserialize<ObservableCollection<Metadata>>(json);
+                    List<Metadata> data = JsonSerializer.Deserialize<List<Metadata>>(json);
                     return data;
                 }
                 catch (JsonException j)
                 {
                     //In the event the json file is empty or something
-                    return new ObservableCollection<Metadata>();
+                    return new List<Metadata>();
                 }
             }
             else 
             {
                 File.Create("data.json");
-                return new ObservableCollection<Metadata>();
+                return new List<Metadata>();
             
             }
         }

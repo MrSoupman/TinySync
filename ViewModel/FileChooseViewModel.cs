@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TinySync.Commands;
 using TinySync.Model;
+using TinySync.Services;
 
 namespace TinySync.ViewModel
 {
@@ -40,9 +41,11 @@ namespace TinySync.ViewModel
         }
 
         public ICommand AddCommand { get; }
-        public FileChooseViewModel(List<Metadata> data)
+        public ICommand CancelCommand { get; }
+        public FileChooseViewModel(List<Metadata> data, NavigationSvc homeViewNavSvc)
         {
-            AddCommand = new AddFileCommand(this, data);
+            AddCommand = new AddFileCommand(this, data, homeViewNavSvc);
+            CancelCommand = new NavigateCommand(homeViewNavSvc);
         }
     }
 }

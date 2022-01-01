@@ -36,7 +36,7 @@
             </Grid>
         </DockPanel>
         <StackPanel Margin="0 10 0 0" Grid.Row="2" Orientation="Horizontal">
-            <Button>Cancel</Button>
+            <Button Command="{Binding CancelCommand}">Cancel</Button>
             <Button Command="{Binding AddCommand}" Margin="10 0 0 0">Add</Button>
         </StackPanel>
     </Grid>

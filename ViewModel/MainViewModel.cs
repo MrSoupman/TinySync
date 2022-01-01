@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TinySync.Stores;
 
 namespace TinySync.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        public BaseViewModel CurrentVM { get; }
+        private readonly NavStore nav;
+        public BaseViewModel CurrentVM => nav.CurrentVM;
 
-        public MainViewModel()
+        public MainViewModel(NavStore nav)
         {
-            CurrentVM = new FileChooseViewModel(new List<Model.Metadata>());
+            this.nav = nav;
+            nav.CurrentViewModelChanged += Nav_CurrentViewModelChanged;
+        }
+
+        private void Nav_CurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentVM));
         }
     }
 }

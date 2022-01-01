@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using TinySync.Model;
+using TinySync.Services;
 using TinySync.ViewModel;
 
 namespace TinySync.Commands
@@ -15,6 +16,7 @@ namespace TinySync.Commands
     {
         private readonly FileChooseViewModel FCVM;
         private readonly List<Metadata> data;
+        private readonly NavigationSvc homeViewNavigationSvc;
         public override bool CanExecute(object parameter)
         {
             if (!string.IsNullOrEmpty(FCVM.Origin) && !string.IsNullOrEmpty(FCVM.Remote) && base.CanExecute(parameter))
@@ -36,12 +38,13 @@ namespace TinySync.Commands
                     string file = match.ToString();
                     if (File.Exists(file))
                     {
-                        Metadata temp = new Metadata(file, FCVM.Remote);
+                        Metadata temp = new Metadata(file, FCVM.Remote + "\\" + Path.GetFileName(file));
                         if (!data.Contains(temp))
                         {
                             data.Add(temp);
                             //TODO: Replace
                             MessageBox.Show("Successfully added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                            homeViewNavigationSvc.Navigate();
                         }
                         else
                         {
@@ -65,8 +68,9 @@ namespace TinySync.Commands
 
         }
 
-        public AddFileCommand(FileChooseViewModel FCVM, List<Metadata> data)
+        public AddFileCommand(FileChooseViewModel FCVM, List<Metadata> data, NavigationSvc homeViewNavSvc)
         {
+            homeViewNavigationSvc = homeViewNavSvc;
             this.FCVM = FCVM;
             this.data = data;
             this.FCVM.PropertyChanged += FCVM_PropertyChanged;

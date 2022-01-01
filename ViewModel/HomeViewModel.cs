@@ -27,11 +27,10 @@ namespace TinySync.ViewModel
         public ICommand Modify { get; }
         public ICommand Sync { get; }
 
-        public HomeViewModel()
+        public HomeViewModel(List<Metadata> dataList)
         {
             data = new ObservableCollection<MetadataViewModel>();
-            ObservableCollection<Metadata> metadatas = JsonSvc.LoadJson();
-            foreach (Metadata meta in metadatas)
+            foreach (Metadata meta in dataList)
             {
                 data.Add(new MetadataViewModel(meta));
             }
