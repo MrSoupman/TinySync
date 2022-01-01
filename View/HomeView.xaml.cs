@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 
@@ -13,16 +12,6 @@ namespace TinySync.View
         public HomeView()
         {
             InitializeComponent();
-        }
-
-        private void AddFile_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog open = new OpenFileDialog();
-            open.Multiselect = false;
-            if (open.ShowDialog() == true)
-            {
-                FileTextBox.Text = open.FileName.ToString();
-            }
         }
     }
 }

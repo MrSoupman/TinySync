@@ -12,7 +12,7 @@ namespace TinySync.ViewModel
 
         public MainViewModel()
         {
-            CurrentVM = new HomeViewModel();
+            CurrentVM = new FileChooseViewModel(new List<Model.Metadata>());
         }
     }
 }

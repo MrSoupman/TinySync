@@ -6,7 +6,7 @@ namespace TinySync.Model
 {
     public class Metadata
     {
-
+        //Maybe change this to be a list instead?
         [JsonInclude]
         public string Origin { get; set; }
 

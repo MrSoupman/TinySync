@@ -13,14 +13,14 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0">
-            <Label DockPanel.Dock="Top">Origin</Label>
+            <Label DockPanel.Dock="Top">Path to original file(s)</Label>
             <Grid >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0"></TextBox>
-                <Button Grid.Column="1">Browse</Button>
+                <TextBox Name="_Origin" Grid.Column="0" Text="{Binding Origin, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Button Grid.Column="1" Click="AddFile">Browse</Button>
             </Grid>
         </DockPanel>
 
@@ -31,13 +31,13 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0"></TextBox>
-                <Button Grid.Column="1">Browse</Button>
+                <TextBox Name="_Remote" Grid.Column="0" Text="{Binding Remote, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Button Grid.Column="1" Click="AddDirectory">Browse</Button>
             </Grid>
         </DockPanel>
         <StackPanel Margin="0 10 0 0" Grid.Row="2" Orientation="Horizontal">
             <Button>Cancel</Button>
-            <Button Margin="10 0 0 0">Add</Button>
+            <Button Command="{Binding AddCommand}" Margin="10 0 0 0">Add</Button>
         </StackPanel>
     </Grid>
 </UserControl>

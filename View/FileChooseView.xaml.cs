@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,37 @@ namespace TinySync.View
     /// </summary>
     public partial class FileChooseView : UserControl
     {
+        
+
         public FileChooseView()
         {
             InitializeComponent();
+        }
+
+        private void AddFile(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            open.Multiselect = true;
+            if (open.ShowDialog() == true)
+            {
+                _Origin.Text = "";
+                foreach (string file in open.FileNames)
+                    _Origin.Text += '"' + file + '"' + ',';
+            }
+
+        }
+        private void AddDirectory(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                System.Windows.Forms.DialogResult res = dialog.ShowDialog();
+                if (res == System.Windows.Forms.DialogResult.OK && dialog.SelectedPath.Length > 0)
+                {
+                    _Remote.Text = dialog.SelectedPath;
+                }
+
+            }
+
         }
     }
 }
