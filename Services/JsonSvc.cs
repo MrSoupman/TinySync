@@ -37,7 +37,7 @@ namespace TinySync.Services
                     List<Metadata> data = JsonSerializer.Deserialize<List<Metadata>>(json);
                     return data;
                 }
-                catch (JsonException j)
+                catch (JsonException)
                 {
                     //In the event the json file is empty or something
                     return new List<Metadata>();

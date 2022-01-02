@@ -22,7 +22,7 @@ namespace TinySync
         protected override void OnStartup(StartupEventArgs e)
         {
             data = JsonSvc.LoadJson();
-            nav.CurrentVM = new FileChooseViewModel(data, new NavigationSvc(nav, CreateHomeViewModel));
+            nav.CurrentVM = new HomeViewModel(data, new NavigationSvc(nav, CreateFileChooseViewModel));
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(nav)
@@ -42,7 +42,7 @@ namespace TinySync
         }
         private HomeViewModel CreateHomeViewModel()
         {
-            return new HomeViewModel(data);
+            return new HomeViewModel(data, new NavigationSvc(nav, CreateFileChooseViewModel));
         }
 
     }

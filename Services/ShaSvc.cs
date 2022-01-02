@@ -28,11 +28,11 @@ namespace TinySync.Services
                     }                    
                     return sha;
                 }
-                catch (IOException e)
+                catch (IOException)
                 {
                     throw;
                 }
-                catch (UnauthorizedAccessException e)
+                catch (UnauthorizedAccessException)
                 {
                     throw;
                 }
@@ -47,9 +47,17 @@ namespace TinySync.Services
         /// <returns></returns>
         public static bool TestSHA(string file1, string file2)
         {
-            string file1SHA = GetSHA(file1);
-            string file2SHA = GetSHA(file2);
-            return file1SHA.Equals(file2SHA);
+            try
+            {
+                string file1SHA = GetSHA(file1);
+                string file2SHA = GetSHA(file2);
+                return file1SHA.Equals(file2SHA);
+            }
+            catch (Exception)
+            {
+                //The exceptions that could occur is an IOException (Such as file simply does not exist) or unauthorized access. In both cases, we should return false.
+                return false;
+            }
         }
         public static bool TestSHA(Metadata metadata)
         {

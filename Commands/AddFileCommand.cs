@@ -38,18 +38,27 @@ namespace TinySync.Commands
                     string file = match.ToString();
                     if (File.Exists(file))
                     {
-                        Metadata temp = new Metadata(file, FCVM.Remote + "\\" + Path.GetFileName(file));
-                        if (!data.Contains(temp))
+                        string remote = FCVM.Remote + "\\" + Path.GetFileName(file);
+                        if (!file.Equals(remote))
                         {
-                            data.Add(temp);
-                            //TODO: Replace
-                            MessageBox.Show("Successfully added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                            homeViewNavigationSvc.Navigate();
+                            Metadata temp = new Metadata(file, remote);
+                            if (!data.Contains(temp))
+                            {
+                                data.Add(temp);
+                                //TODO: Replace
+                                MessageBox.Show("Successfully added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                                homeViewNavigationSvc.Navigate();
+                            }
+                            else
+                            {
+                                //TODO: Replace
+                                MessageBox.Show("File already added for syncing to this directory", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
                         }
                         else
                         {
                             //TODO: Replace
-                            MessageBox.Show("File already added for syncing to this directory", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Original path and sync path are the same.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                     else
