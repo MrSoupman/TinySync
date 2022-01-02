@@ -21,9 +21,9 @@ namespace TinySync.Services
                 IncludeFields = true,
             };
             byte[] json = JsonSerializer.SerializeToUtf8Bytes(data,options);
-            using (var stream = File.OpenWrite("data.json"))
+            using (var stream = File.Create("data.json"))
             {
-                stream.Write(json);
+                stream.Write(json,0,json.Length);
             }
         }
 

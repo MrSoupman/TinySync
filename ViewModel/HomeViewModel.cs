@@ -35,6 +35,20 @@ namespace TinySync.ViewModel
             }
         }
 
+        private string _Status;
+        public string Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                _Status = value;
+                OnPropertyChanged(nameof(Status));
+            }
+        }
+
         public IEnumerable<MetadataViewModel> MetaList => data;
 
 
@@ -48,13 +62,11 @@ namespace TinySync.ViewModel
         {
             this.dataList = dataList;
             data = new ObservableCollection<MetadataViewModel>();
-            foreach (Metadata meta in dataList)
-            {
-                data.Add(new MetadataViewModel(meta));
-            }
+            UpdateMetalist();
             AddFileMenu = new NavigateCommand(FileChooseViewNavSvc);
             _SelectedIndex = -1;
             Remove = new RemoveFileCommand(this, dataList);
+            Status = "Waiting...";
             
         }
 
@@ -63,6 +75,7 @@ namespace TinySync.ViewModel
             data.Clear();
             foreach (Metadata meta in dataList)
                 data.Add(new MetadataViewModel(meta));
+            JsonSvc.SaveJson(dataList);
         }
 
 

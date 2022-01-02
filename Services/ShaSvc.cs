@@ -47,6 +47,8 @@ namespace TinySync.Services
         /// <returns></returns>
         public static bool TestSHA(string file1, string file2)
         {
+            if (!File.Exists(file1) || !File.Exists(file2))
+                return false;
             try
             {
                 string file1SHA = GetSHA(file1);

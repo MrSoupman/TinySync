@@ -29,16 +29,22 @@
                     <RowDefinition Height="0.25*"/>
                     <RowDefinition Height="0.25*"/>
                     <RowDefinition Height="0.25*"/>
-
                     <RowDefinition Height="0.25*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.15*"/>
                     <RowDefinition Height="0.25*"/>
                 </Grid.RowDefinitions>
                 <Button Command="{Binding AddFileMenu}" Grid.Row="0">Add Files</Button>
                 <Button Grid.Row="1">Add Folder</Button>
                 <Button Grid.Row="2" Command="{Binding Remove}">Remove</Button>
                 <Button Grid.Row="3">Modify</Button>
-                <Button Grid.Row="5">Sync</Button>
+                <StackPanel Grid.Row="5" Orientation="Horizontal">
+                    <Label>Status:</Label>
+                    <Label Content="{Binding Status}"/>
+                </StackPanel>
+                <ProgressBar Grid.Row="6"/>
+                <Button Grid.Row="7">Sync</Button>
             </Grid>
 
             <ListView SelectionMode="Single" SelectedIndex="{Binding SelectedIndex}" Grid.Column="1" ItemsSource="{Binding MetaList}">

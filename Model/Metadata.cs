@@ -21,6 +21,7 @@ namespace TinySync.Model
 
         public DateTime LastSynced { get; set; }
 
+        
         public string Status { get; set; }
 
         
