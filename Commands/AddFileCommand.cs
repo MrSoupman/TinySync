@@ -17,6 +17,7 @@ namespace TinySync.Commands
         private readonly FileChooseViewModel FCVM;
         private readonly List<Metadata> data;
         private readonly NavigationSvc homeViewNavigationSvc;
+
         public override bool CanExecute(object parameter)
         {
             if (!string.IsNullOrEmpty(FCVM.Origin) && !string.IsNullOrEmpty(FCVM.Remote) && base.CanExecute(parameter))

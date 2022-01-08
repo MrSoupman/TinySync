@@ -21,5 +21,11 @@ namespace TinySync.Services
             this.nav = nav;
             this.createViewModel = createViewModel;
         }
+
+        public NavStore GetNavStore()
+        {
+            return nav;
+        }
+
     }
 }

@@ -14,6 +14,9 @@
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ModifyViewModel}">
+                <view:ModifyView/>
+            </DataTemplate>
         </Grid.Resources>
         <view:HomeView Content="{Binding CurrentVM}"/>
     </Grid>

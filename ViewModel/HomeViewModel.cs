@@ -67,6 +67,7 @@ namespace TinySync.ViewModel
             _SelectedIndex = -1;
             Remove = new RemoveFileCommand(this, dataList);
             Status = "Waiting...";
+            ModifyMenu = new NavigateModifyCommand(this, dataList,FileChooseViewNavSvc.GetNavStore());
             
         }
 
