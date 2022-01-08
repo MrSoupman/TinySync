@@ -39,6 +39,7 @@ namespace TinySync.ViewModel
         public ModifyViewModel(int index, List<Metadata> metadata, NavigationSvc homeViewNavSvc)
         {
             CancelCommand = new NavigateCommand(homeViewNavSvc);
+            Modify = new ModifyCommand(this, index, metadata, homeViewNavSvc);
             _Meta = metadata[index].Origin;
         }
     }
