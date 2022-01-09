@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TinySync.Model;
 using TinySync.ViewModel;
 
@@ -14,8 +15,14 @@ namespace TinySync.Commands
         private readonly List<Metadata> data;
         public override void Execute(object parameter)
         {
-            data.RemoveAt(HVM.SelectedIndex);
-            HVM.UpdateMetalist();
+            //TODO: Change
+            var res = MessageBox.Show("Are you sure you want to remove this file from the list?", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if (res.Equals(MessageBoxResult.OK))
+            {
+                data.RemoveAt(HVM.SelectedIndex);
+                HVM.UpdateMetalist();
+            }
+            
             
         }
 
