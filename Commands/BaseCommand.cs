@@ -7,6 +7,9 @@ using System.Windows.Input;
 
 namespace TinySync.Commands
 {
+    /// <summary>
+    /// Base command used for abstraction
+    /// </summary>
     public abstract class BaseCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

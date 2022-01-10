@@ -10,32 +10,13 @@ namespace TinySync.Services
 {
     class SyncSvc
     {
-        /// <summary>
-        /// Refreshes a metadata, resetting SHA values
-        /// </summary>
-        /// <param name="data"></param>
-        public static void RefreshMetadata(Metadata data)
+       
+
+        public static void Sync(Metadata metadata)
         {
-            if (File.Exists(data.Origin) || Directory.Exists(data.Origin))
-            {
-                //First check if we're working with a directory or file
 
-                FileAttributes attr = File.GetAttributes(data.Origin);
-                if (attr.HasFlag(FileAttributes.Directory))
-                {
-                    //may have to do this somewhere else?
-                }
-                else 
-                {
-                    data.OriginSHA = ShaSvc.GetSHA(data.Origin);
-                    data.RemoteSHA = ShaSvc.GetSHA(data.Remote);
-                }
-            }
-            else
-                throw new FileNotFoundException("Error, couldn't find the specified origin file or directory.", data.Origin);
-
-            
         }
-
     }
+
+    
 }

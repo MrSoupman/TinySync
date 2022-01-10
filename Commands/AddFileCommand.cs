@@ -28,11 +28,11 @@ namespace TinySync.Commands
 
         public override void Execute(object parameter)
         {
-            Regex reg = new Regex("[^\"]+[^\", ]");
+            Regex reg = new Regex("[^\"]+[^\", ]"); //We add files in the format of '"file.ext",'. This regex extracts the string between the quotes and comma
             //List<string> files = new List<string>();
             string param = FCVM.Origin;
             var matches = reg.Matches(param);
-            if (Directory.Exists(FCVM.Remote))
+            if (Directory.Exists(FCVM.Remote)) //checks on the off chance the remote directory doesn't exist at this point
             {
                 foreach (var match in matches)
                 {
@@ -43,7 +43,7 @@ namespace TinySync.Commands
                         if (!file.Equals(remote))
                         {
                             Metadata temp = new Metadata(file, remote);
-                            if (!data.Contains(temp))
+                            if (!data.Contains(temp)) //check that we're not already set to sync to this directory
                             {
                                 data.Add(temp);
                                 //TODO: Replace

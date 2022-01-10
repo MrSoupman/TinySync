@@ -17,14 +17,12 @@ namespace TinySync.Commands
         private List<Metadata> data;
         public override void Execute(object parameter)
         {
-            nav.CurrentVM = new ModifyViewModel(HVM.SelectedIndex, data, new NavigationSvc(nav, CreateHomeViewModel));
+            nav.CurrentVM = new ModifyViewModel(HVM.SelectedIndex, data, new NavigationSvc(nav, CreateHomeViewModel)); //changes the view(model) to the modify view
         }
 
         public override bool CanExecute(object parameter)
         {
-            if (HVM.SelectedIndex > -1)
-                return true;
-            return false;
+            return HVM.SelectedIndex > -1; //checks if user has selected an item
         }
 
         public NavigateModifyCommand(HomeViewModel HVM, List<Metadata> data, NavStore nav)

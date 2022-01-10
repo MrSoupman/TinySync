@@ -29,11 +29,7 @@ namespace TinySync.Commands
 
         public override bool CanExecute(object parameter)
         {
-
-            if (HVM.SelectedIndex >= 0)
-                return true;
-            return false;
-
+            return HVM.SelectedIndex > -1; //checks if user has selected an item
         }
 
         public RemoveFileCommand(HomeViewModel HVM, List<Metadata> data)

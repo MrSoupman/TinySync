@@ -10,18 +10,13 @@ namespace TinySync.Model
         [JsonInclude]
         public string Origin { get; set; }
 
-        //To remove?
-        public string OriginSHA { get; set; }
-
         [JsonInclude]
         public string Remote { get; set; }
 
-        //To remove?
-        public string RemoteSHA { get; set; }
-
+        [JsonInclude]
         public DateTime LastSynced { get; set; }
 
-        
+        [JsonIgnore]
         public string Status { get; set; }
 
         
@@ -36,22 +31,14 @@ namespace TinySync.Model
         {
             this.Origin = Origin;
             this.Remote = Remote;
+            LastSynced = default;
         }
 
-        /// <summary>
-        /// For debugging purposes only, need to remove later.
-        /// </summary>
-        /// <param name="Origin"></param>
-        /// <param name="OriginSHA"></param>
-        /// <param name="Remote"></param>
-        /// <param name="RemoteSHA"></param>
-        public Metadata(string Origin, string OriginSHA, string Remote, string RemoteSHA)
+        public Metadata(string Origin, string Remote, DateTime LastSynced)
         {
             this.Origin = Origin;
-            this.OriginSHA = OriginSHA;
             this.Remote = Remote;
-            this.RemoteSHA = RemoteSHA;
-            
+            this.LastSynced = LastSynced;
         }
 
         public override bool Equals(object data)
@@ -59,7 +46,7 @@ namespace TinySync.Model
             Metadata temp = data as Metadata;
             if (data != null)
             {
-                return temp.OriginSHA == OriginSHA && temp.Remote == Remote;
+                return temp.Origin == Origin && temp.Remote == Remote;
             }
             return false;
         }
