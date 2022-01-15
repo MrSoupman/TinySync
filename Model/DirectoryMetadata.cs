@@ -28,9 +28,7 @@ namespace TinySync.Model
             if (data != null)
             {
                 if (temp.Origin == Origin &&
-                    temp.OriginSHA == OriginSHA &&
-                    temp.Remote == Remote &&
-                    temp.RemoteSHA == RemoteSHA)
+                    temp.Remote == Remote)
                 {
                     for (int i = 0; i < temp.Exclusions.Count; i++)
                     {

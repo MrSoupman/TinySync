@@ -17,7 +17,7 @@ namespace TinySync
     /// </summary>
     public partial class App : Application
     {
-        private List<Metadata> data;
+        private List<Metadata> data; //May want to change this so we aren't just being redundant
         private readonly NavStore nav;
         protected override void OnStartup(StartupEventArgs e)
         {

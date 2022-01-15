@@ -19,7 +19,24 @@ namespace TinySync.ViewModel
         /// data is used to store the directory/file to be synced, and its metadata. 
         /// </summary>
         public ObservableCollection<MetadataViewModel> data;
+        public IEnumerable<MetadataViewModel> MetaList => data;
         private List<Metadata> dataList;
+        
+        
+        private bool _ButtonsEnabled = true;
+        public bool ButtonsEnabled
+        {
+            get
+            {
+                return _ButtonsEnabled;
+            }
+            set
+            {
+                _ButtonsEnabled = value;
+                OnPropertyChanged(nameof(ButtonsEnabled));
+            }
+        }
+
 
         private int _SelectedIndex;
         public int SelectedIndex
@@ -49,7 +66,19 @@ namespace TinySync.ViewModel
             }
         }
 
-        public IEnumerable<MetadataViewModel> MetaList => data;
+        private int _Progress;
+        public int Progress
+        {
+            get
+            {
+                return _Progress;
+            }
+            set
+            {
+                _Progress = value;
+                OnPropertyChanged(nameof(Progress));
+            }
+        }
 
 
         public ICommand AddFileMenu { get; }
@@ -60,15 +89,17 @@ namespace TinySync.ViewModel
 
         public HomeViewModel(List<Metadata> dataList, NavigationSvc FileChooseViewNavSvc)
         {
-            this.dataList = dataList;
-            data = new ObservableCollection<MetadataViewModel>();
-            UpdateMetalist();
-            AddFileMenu = new NavigateCommand(FileChooseViewNavSvc);
             _SelectedIndex = -1;
-            Remove = new RemoveFileCommand(this, dataList);
+            Progress = 0;
             Status = "Waiting...";
+            data = new ObservableCollection<MetadataViewModel>();
+            AddFileMenu = new NavigateCommand(FileChooseViewNavSvc);
+            Remove = new RemoveFileCommand(this, dataList);
             ModifyMenu = new NavigateModifyCommand(this, dataList,FileChooseViewNavSvc.GetNavStore());
-            
+            Sync = new SyncCommand(this);
+            AddFolderMenu = new DebugCommand(this);
+            this.dataList = dataList;
+            UpdateMetalist();
         }
 
         public void UpdateMetalist()
@@ -79,7 +110,19 @@ namespace TinySync.ViewModel
             JsonSvc.SaveJson(dataList);
         }
 
+        public List<Metadata> GetMetadatas()
+        {
+            return dataList;
+        }
 
+        public void DisableButtons()
+        {
+            ButtonsEnabled = false;
+        }
+        public void EnableButtons()
+        {
+            ButtonsEnabled = true;
+        }
 
     }
 }
