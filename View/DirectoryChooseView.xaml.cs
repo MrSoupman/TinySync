@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,31 +16,24 @@ using System.Windows.Shapes;
 namespace TinySync.View
 {
     /// <summary>
-    /// Interaction logic for FileChooseView.xaml
+    /// Interaction logic for DirectoryChooseView.xaml
     /// </summary>
-    public partial class FileChooseView : UserControl
+    public partial class DirectoryChooseView : UserControl
     {
-        
-
-        public FileChooseView()
+        private void AddOriginDirectory(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-        }
-
-        private void AddFile(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog open = new OpenFileDialog();
-            open.Multiselect = true;
-            if (open.ShowDialog() == true)
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
             {
-                _Origin.Text = "";
-                foreach (string file in open.FileNames)
-                    _Origin.Text += '"' + file + '"' + ',';
+                System.Windows.Forms.DialogResult res = dialog.ShowDialog();
+                if (res == System.Windows.Forms.DialogResult.OK && dialog.SelectedPath.Length > 0)
+                {
+                    _Origin.Text = dialog.SelectedPath;
+                }
+
             }
 
         }
-
-        private void AddDirectory(object sender, RoutedEventArgs e)
+        private void AddRemoteDirectory(object sender, RoutedEventArgs e)
         {
             using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
             {
@@ -54,6 +46,9 @@ namespace TinySync.View
             }
 
         }
-
+        public DirectoryChooseView()
+        {
+            InitializeComponent();
+        }
     }
 }

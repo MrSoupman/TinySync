@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace TinySync.Model
 {
+    /// <summary>
+    /// DirectoryMetadata is an extension of Metadata, and holds the files/directories to be excluded from syncing.
+    /// </summary>
     public class DirectoryMetadata : Metadata
     {
         /// <summary>

@@ -43,9 +43,13 @@ namespace TinySync.Commands
         {
             return new FileChooseViewModel(data, new NavigationSvc(nav, CreateHomeViewModel));
         }
+        private DirectoryChooseViewModel CreateDirectoryChooseViewModel()
+        {
+            return new DirectoryChooseViewModel(data, new NavigationSvc(nav, CreateHomeViewModel));
+        }
         private HomeViewModel CreateHomeViewModel()
         {
-            return new HomeViewModel(data, new NavigationSvc(nav, CreateFileChooseViewModel));
+            return new HomeViewModel(data, new NavigationSvc(nav, CreateFileChooseViewModel), new NavigationSvc(nav, CreateDirectoryChooseViewModel));
         }
     }
 }

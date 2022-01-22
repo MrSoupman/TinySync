@@ -15,8 +15,14 @@ namespace TinySync.ViewModel
         public MetadataViewModel(Metadata metadata)
         {
             _metadata = metadata;
-            metadata.Status = ShaSvc.TestSHA(metadata) ? "Up to Date" : "Unsynced";
+            if(string.IsNullOrEmpty(metadata.Status)) // Upon syncing, metadata status could be an error message
+                metadata.Status = ShaSvc.TestSHA(metadata) ? "Up to Date" : "Unsynced";
 
+        }
+
+        public Metadata GetMetadata()
+        {
+            return _metadata;
         }
     }
 }

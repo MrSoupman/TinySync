@@ -87,17 +87,17 @@ namespace TinySync.ViewModel
         public ICommand ModifyMenu { get; }
         public ICommand Sync { get; }
 
-        public HomeViewModel(List<Metadata> dataList, NavigationSvc FileChooseViewNavSvc)
+        public HomeViewModel(List<Metadata> dataList, NavigationSvc FileChooseViewNavSvc, NavigationSvc DirectoryChooseViewNavSvc)
         {
             _SelectedIndex = -1;
             Progress = 0;
             Status = "Waiting...";
             data = new ObservableCollection<MetadataViewModel>();
             AddFileMenu = new NavigateCommand(FileChooseViewNavSvc);
+            AddFolderMenu = new NavigateCommand(DirectoryChooseViewNavSvc);
             Remove = new RemoveFileCommand(this, dataList);
             ModifyMenu = new NavigateModifyCommand(this, dataList,FileChooseViewNavSvc.GetNavStore());
             Sync = new SyncCommand(this);
-            AddFolderMenu = new DebugCommand(this);
             this.dataList = dataList;
             UpdateMetalist();
         }

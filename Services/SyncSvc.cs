@@ -51,43 +51,111 @@ namespace TinySync.Services
             }
         }
 
-        public static void Sync(Metadata metadata)
+        public static void SyncFile(Metadata metadata)
+        {
+            try
+            {
+                SyncFile(metadata.Origin, metadata.Remote);
+                metadata.Status = "Up to Date";
+                metadata.LastSynced = DateTime.Now;
+            }
+            catch (Exception e)
+            {
+                metadata.Status = e.Message;
+            }
+            
+        }
+
+        private static void SyncFile(string file,string remote)
         {
             ulong DiskSpace = 0;
             try
             {
-                DriveFreeBytes(Path.GetDirectoryName(metadata.Remote), out DiskSpace);
+                DriveFreeBytes(Path.GetDirectoryName(file), out DiskSpace);
             }
             catch (Exception)
             {
-                metadata.Status = "Error getting available disk space.";
+                throw new Exception(message: "Error getting available disk space.");
             }
 
-            FileInfo info = new FileInfo(metadata.Origin);
+            FileInfo info = new FileInfo(file);
             try
             {
                 if (DiskSpace - (ulong)info.Length > 2097152) //Magic number is just 2 Megabytes in bytes; 2MB was arbitrarily chosen
                 {
                     try
                     {
-                        File.Copy(metadata.Origin, metadata.Remote, true);
-                        metadata.Status = "Up to Date";
-                        metadata.LastSynced = DateTime.Now;
+
+                        File.Copy(file, remote, true);
+                        
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-                        metadata.Status = e.Message;
+                        throw;
                     }
 
                 }
                 else
-                    metadata.Status = "Error - Not enough space on target disk.";
+                    throw new Exception(message: "Error - Not enough space on target disk.");
             }
             catch (Exception)
             {
-                metadata.Status = "Error occurred getting file size.";
+                throw new Exception(message: "Error occurred getting file size.");
             }
-            
+        }
+
+        public static void SyncDirectory(DirectoryMetadata metadata)
+        {
+            try
+            {
+
+                SyncDirectory(metadata.Origin, metadata.Remote);
+                metadata.Status = "Up to Date";
+                metadata.LastSynced = DateTime.Now;
+            }
+            catch(Exception e)
+            {
+                metadata.Status = e.Message;
+            }
+        }
+
+        private static void SyncDirectory(string OriginDir, string RemoteDir)
+        {
+            var EFolders = Directory.EnumerateFileSystemEntries(OriginDir);
+            int count = OriginDir.Length+1;
+            foreach (string file in EFolders)
+            {
+                FileAttributes attr = File.GetAttributes(file);
+                string sepFile = Path.DirectorySeparatorChar + file.Remove(0,count);
+                if ((attr & FileAttributes.Directory) == FileAttributes.Directory) //check if it's a directory
+                {
+                    if (!Directory.Exists(RemoteDir + sepFile))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory(RemoteDir + sepFile);
+                        }
+                        catch
+                        {
+                            throw;
+                        }
+                    }
+                    SyncDirectory(OriginDir + sepFile, RemoteDir + sepFile);
+                }
+                else
+                {
+                    //need to check for exclusions here
+                    try
+                    {
+                        SyncFile(OriginDir + sepFile, RemoteDir + sepFile);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+                }
+            }
         }
     }
 

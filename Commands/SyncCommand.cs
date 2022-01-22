@@ -54,15 +54,19 @@ namespace TinySync.Commands
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            int count = 0, progress = 0;
+            int progress = 0;
             metadatas = HVM.GetMetadatas();
-            foreach (Metadata metadata in metadatas)
+            for (int i = 0; i < metadatas.Count; i++)
             {
-                SyncSvc.Sync(metadata);
-                count++;
-                progress = Convert.ToInt32(((float)count / (float)metadatas.Count) * 100);
+                if (metadatas[i].GetType() == typeof(Metadata))
+                {
+                    SyncSvc.SyncFile(metadatas[i]);
+                }
+                else
+                    SyncSvc.SyncDirectory(metadatas[i] as DirectoryMetadata);
+                progress = Convert.ToInt32(((float)i+1 / (float)metadatas.Count) * 100);
                 (sender as BackgroundWorker).ReportProgress(progress);
-                Thread.Sleep(1000);
+                Thread.Sleep(300);
             }
         }
     }

@@ -11,6 +11,9 @@
             <DataTemplate DataType="{x:Type vms:FileChooseViewModel}">
                 <view:FileChooseView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:DirectoryChooseViewModel}">
+                <view:DirectoryChooseView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
