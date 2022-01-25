@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using System.Collections.ObjectModel;
+using System.Text;
 
 namespace TinySync.Services
 {
@@ -20,10 +21,31 @@ namespace TinySync.Services
             {
                 IncludeFields = true,
             };
-            byte[] json = JsonSerializer.SerializeToUtf8Bytes(data,options);
+            //byte[] json = JsonSerializer.SerializeToUtf8Bytes<object>(data, options);
+            //string json = JsonSerializer.Serialize<object>(data,options);
             using (var stream = File.Create("data.json"))
             {
-                stream.Write(json,0,json.Length);
+                string json = "";
+                int offset = 0;
+                int length;
+                for (int i = 0; i < data.Count; i++)
+                {
+                    
+                    json = JsonSerializer.Serialize(data[i], data[i].GetType(), options);
+                    if (i == 0)
+                        json = '[' + json;
+                    if (i != data.Count - 1)
+                    {
+                        json += ',';
+                    }
+                    else
+                        json += ']';
+                    length = json.Length;
+                    stream.Write(Encoding.UTF8.GetBytes(json),0,length);
+                    offset += length;
+                    
+                }
+                
             }
         }
 
