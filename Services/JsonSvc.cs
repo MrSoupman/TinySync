@@ -17,35 +17,17 @@ namespace TinySync.Services
 
         public static void SaveJson(List<Metadata> data)
         {
-            var options = new JsonSerializerOptions
-            {
-                IncludeFields = true,
-            };
-            //byte[] json = JsonSerializer.SerializeToUtf8Bytes<object>(data, options);
-            //string json = JsonSerializer.Serialize<object>(data,options);
             using (var stream = File.Create("data.json"))
             {
-                string json = "";
-                int offset = 0;
-                int length;
-                for (int i = 0; i < data.Count; i++)
+                var options = new JsonSerializerOptions()
                 {
-                    
-                    json = JsonSerializer.Serialize(data[i], data[i].GetType(), options);
-                    if (i == 0)
-                        json = '[' + json;
-                    if (i != data.Count - 1)
+                    Converters =
                     {
-                        json += ',';
+                        new MetadataConverter()
                     }
-                    else
-                        json += ']';
-                    length = json.Length;
-                    stream.Write(Encoding.UTF8.GetBytes(json),0,length);
-                    offset += length;
-                    
-                }
-                
+                };
+                string json = JsonSerializer.Serialize<List<Metadata>>(data, options);
+                stream.Write(Encoding.UTF8.GetBytes(json), 0, json.Length);
             }
         }
 
@@ -56,7 +38,14 @@ namespace TinySync.Services
                 string json = File.ReadAllText("data.json");
                 try
                 {
-                    List<Metadata> data = JsonSerializer.Deserialize<List<Metadata>>(json);
+                    var options = new JsonSerializerOptions()
+                    {
+                        Converters =
+                    {
+                        new MetadataConverter()
+                    }
+                    };
+                    List<Metadata> data = JsonSerializer.Deserialize<List<Metadata>>(json,options);
                     return data;
                 }
                 catch (JsonException)

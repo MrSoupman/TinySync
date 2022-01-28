@@ -16,7 +16,7 @@ namespace TinySync.Model
         /// Exclusions is a list of files/dirs to be excluded from the sync. As such, should only be used for directories that were added.
         /// </summary>
         [JsonInclude]
-        public IList<string> Exclusions { get; set; }
+        public List<string> Exclusions { get; set; }
 
         public DirectoryMetadata(string origin, string remote)
         {
@@ -25,10 +25,14 @@ namespace TinySync.Model
             Exclusions = new List<string>();
         }
 
+        public DirectoryMetadata()
+        { 
+        }
+
         public override bool Equals(object data)
         {
             DirectoryMetadata temp = data as DirectoryMetadata;
-            if (data != null)
+            if (temp != null)
             {
                 if (temp.Origin == Origin &&
                     temp.Remote == Remote)

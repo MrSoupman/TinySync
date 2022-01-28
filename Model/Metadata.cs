@@ -6,18 +6,13 @@ namespace TinySync.Model
 {
     public class Metadata
     {
-        //Maybe change this to be a list instead?
-        [JsonInclude]
         public string Origin { get; set; }
-
-        [JsonInclude]
         public string Remote { get; set; }
-
-        [JsonInclude]
         public DateTime LastSynced { get; set; }
 
         [JsonIgnore]
-        public string Status { get; set; }
+        public string Status { get; set; } //might change to enum
+
 
         
         public Metadata() { }
