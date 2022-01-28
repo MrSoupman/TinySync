@@ -7,18 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Header="_Add Folder"/>
-                <MenuItem Header="_Add Files Recursively"/>
-                <Separator/>
-                <MenuItem Header="_Exit"/>
-            </MenuItem>
-            <MenuItem Header="_Help">
-                <MenuItem Header="_About"/>
-            </MenuItem>
-        </Menu>
-
+       
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
