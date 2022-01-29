@@ -56,7 +56,7 @@ namespace TinySync.Services
             }
             else 
             {
-                File.Create("data.json");
+                using (File.Create("data.json"))
                 return new List<Metadata>();
             
             }
